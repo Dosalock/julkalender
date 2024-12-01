@@ -17,7 +17,7 @@
                 100px 100px,
                 20px 20px,
                 20px 20px;
-            font-family: 'Mountains of Christmas', cursive;
+            font-family: 'Gochi Hand', cursive;
             color: #ffffff;
             display: flex;
             justify-content: center;
@@ -135,25 +135,23 @@
         .incorrect {
             color: #FF4500;
         }
+        .reward-image {
+            max-width: 300px;
+            max-height: 300px;
+            margin: 20px auto;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+        .locked-question {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
     <div class="quiz-container">
-        <div class="decorative-tree tree-top-left">🎄</div>
-        <div class="decorative-tree tree-bottom-right">🎄</div>
-        
-        <div class="bells bell1">🔔</div>
-        <div class="bells bell2">🔔</div>
-        <div class="bells bell3">🔔</div>
-        <div class="bells bell4">🔔</div>
-        
-        <div class="mushroom mushroom1">🍄</div>
-        <div class="mushroom mushroom2">🍄</div>
-        
-        <div class="cute-animal animal1">🦊</div>
-        <div class="cute-animal animal2">🐿️</div>
-
-        <h1>🎄 Magical Christmas Quiz 🎅</h1>
+        <!-- Previous decorative elements remain the same -->
+        <h1>🎄 BBs Advent Calendar 2024 🎅</h1>
         <div id="quiz-content">
             <!-- Quiz content will be dynamically inserted here -->
         </div>
@@ -162,19 +160,28 @@
     <script>
         const christmasQuizData = [
             {
-                question: "What is Santa's favorite cookie?",
+                question: "Day 1: What day do we open presents in sweden?",
                 correctAnswer: "Chocolate chip",
-                hints: ["Sweet treat", "Classic American cookie"]
+                hints: ["The date is even!", "Day before Americans 8-)"],
+                rewardImage: "images/day1.png",
+                validFrom: new Date(2024, 11, 1), // Note: month is 0-indexed
+                validTo: new Date(2024, 11, 2)
             },
             {
-                question: "What do children leave out for Santa on Christmas Eve?",
-                correctAnswer: "Milk and cookies",
-                hints: ["Two food items", "Sweet and refreshing"]
+                question: "Day 2: What number does Piska and Emergencies have in common?\n answer in binary:)",
+                correctAnswer: "01110000",
+                hints: ["PP", "Where do you call if someone is dying?"],
+                rewardImage: "images/day2.png",
+                validFrom: new Date(2024, 11, 2),
+                validTo: new Date(2024, 11, 3)
             },
             {
                 question: "In what country did the tradition of Christmas stockings originate?",
                 correctAnswer: "Netherlands",
-                hints: ["European country", "Near Belgium"]
+                hints: ["European country", "Near Belgium"],
+                rewardImage: "images/day3.png",
+                validFrom: new Date(2024, 11, 3),
+                validTo: new Date(2024, 11, 4)
             }
         ];
 
@@ -183,12 +190,28 @@
                 this.quizData = quizData;
                 this.containerElement = containerElement;
                 this.currentQuestionIndex = 0;
+                this.currentRewardImage = null;
             }
 
             renderQuestion() {
                 const currentQuestion = this.quizData[this.currentQuestionIndex];
+                const today = new Date();
+
+                // Check if the current question is available today
+                if (today < currentQuestion.validFrom || today >= currentQuestion.validTo) {
+                    this.containerElement.innerHTML = `
+                        <div class="question locked-question">🔒 This question will be available on ${currentQuestion.validFrom.toDateString()} 🕒</div>
+                    `;
+                    return;
+                }
+                
+                // If there's a previous reward image, keep it displayed
+                let rewardImageHtml = this.currentRewardImage ? 
+                    `<img src="${this.currentRewardImage}" alt="Reward" class="reward-image">` : 
+                    '';
                 
                 this.containerElement.innerHTML = `
+                    ${rewardImageHtml}
                     <div class="question">${currentQuestion.question}</div>
                     <input type="text" class="answer-input" placeholder="Type your Christmas answer here 🎄">
                     <button class="submit-btn">Submit Answer 🦌</button>
@@ -218,8 +241,14 @@
                 const isCorrect = userAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
 
                 if (isCorrect) {
-                    feedbackElement.innerHTML = '✅ Correct! 🎉🎄';
-                    feedbackElement.classList.add('correct');
+                    // Store the reward image for the next question
+                    this.currentRewardImage = currentQuestion.rewardImage;
+
+                    // Show feedback
+                    this.containerElement.innerHTML = `
+                        <div class="feedback correct">✅ Correct! 🎉🎄</div>
+                        <img src="${this.currentRewardImage}" alt="Reward" class="reward-image">
+                    `;
                     
                     setTimeout(() => {
                         this.currentQuestionIndex++;
@@ -231,7 +260,7 @@
                                 <div class="question">Congratulations! You've conquered the Magical Christmas Quiz! 🦌🍪</div>
                             `;
                         }
-                    }, 1500);
+                    }, 3000);
                 } else {
                     feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} 🎄`;
                     feedbackElement.classList.add('incorrect');
