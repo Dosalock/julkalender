@@ -1,38 +1,255 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
-    {% include head-custom.html %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magical Christmas Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #8B0000;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.1) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255,255,255,0.1) 2px, transparent 2px),
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 
+                100px 100px,
+                100px 100px,
+                20px 20px,
+                20px 20px;
+            font-family: 'Mountains of Christmas', cursive;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .quiz-container {
+            background-color: rgba(139, 0, 0, 0.9);
+            border-radius: 30px;
+            border: 10px solid green;
+            box-shadow: 
+                0 0 0 5px #228B22,
+                0 10px 30px rgba(0,0,0,0.5);
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .decorative-tree {
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        .tree-top-left {
+            top: -50px;
+            left: -50px;
+            transform: rotate(-15deg);
+        }
+        .tree-bottom-right {
+            bottom: -50px;
+            right: -50px;
+            transform: rotate(15deg);
+        }
+        .bells {
+            position: absolute;
+            font-size: 30px;
+            color: #FFD700;
+        }
+        .bell1 { top: 10px; left: 10px; }
+        .bell2 { top: 10px; right: 10px; }
+        .bell3 { bottom: 10px; left: 10px; }
+        .bell4 { bottom: 10px; right: 10px; }
+        .mushroom {
+            position: absolute;
+            font-size: 40px;
+        }
+        .mushroom1 { top: 20px; left: 50px; }
+        .mushroom2 { bottom: 20px; right: 50px; }
+        .cute-animal {
+            position: absolute;
+            font-size: 50px;
+        }
+        .animal1 { top: 10px; right: 50px; }
+        .animal2 { bottom: 10px; left: 50px; }
+        h1 {
+            color: #FFD700;
+            text-shadow: 3px 3px 0 #228B22;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 10;
+        }
+        .question {
+            color: #ffffff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+        }
+        .answer-input {
+            width: 100%;
+            padding: 10px;
+            margin: 20px 0;
+            border: 3px solid #FFD700;
+            border-radius: 15px;
+            font-size: 18px;
+            font-family: 'Mountains of Christmas', cursive;
+            text-align: center;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+        }
+        .answer-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        .submit-btn {
+            background-color: #228B22;
+            color: #FFD700;
+            border: 3px solid #FFD700;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .submit-btn:hover {
+            background-color: #1E481E;
+            transform: scale(1.05);
+        }
+        .feedback {
+            margin-top: 20px;
+            font-size: 20px;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+        }
+        .correct {
+            color: #00FF00;
+        }
+        .incorrect {
+            color: #FF4500;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="decorative-tree tree-top-left">🎄</div>
+        <div class="decorative-tree tree-bottom-right">🎄</div>
+        
+        <div class="bells bell1">🔔</div>
+        <div class="bells bell2">🔔</div>
+        <div class="bells bell3">🔔</div>
+        <div class="bells bell4">🔔</div>
+        
+        <div class="mushroom mushroom1">🍄</div>
+        <div class="mushroom mushroom2">🍄</div>
+        
+        <div class="cute-animal animal1">🦊</div>
+        <div class="cute-animal animal2">🐿️</div>
 
-{% seo %}
-  </head>
-
-  <body>
-
-    <header>
-      <div class="container">
-        <a id="a-title" href="{{ '/' | relative_url }}">
-          <h1>{{ site.title | default: site.github.repository_name }}</h1>
-        </a>
-        <h2>{{ site.description | default: site.github.project_tagline }}</h2>
-
-        <section id="downloads">
-          {% if site.show_downloads %}
-            <a href="{{ site.github.zip_url }}" class="btn">Download as .zip</a>
-            <a href="{{ site.github.tar_url }}" class="btn">Download as .tar.gz</a>
-          {% endif %}
-          <a href="{{ site.github.repository_url }}" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        {{ content }}
-      </section>
+        <h1>🎄 Magical Christmas Quiz 🎅</h1>
+        <div id="quiz-content">
+            <!-- Quiz content will be dynamically inserted here -->
+        </div>
     </div>
-  </body>
+
+    <script>
+        const christmasQuizData = [
+            {
+                question: "What is Santa's favorite cookie?",
+                correctAnswer: "Chocolate chip",
+                hints: ["Sweet treat", "Classic American cookie"]
+            },
+            {
+                question: "What do children leave out for Santa on Christmas Eve?",
+                correctAnswer: "Milk and cookies",
+                hints: ["Two food items", "Sweet and refreshing"]
+            },
+            {
+                question: "In what country did the tradition of Christmas stockings originate?",
+                correctAnswer: "Netherlands",
+                hints: ["European country", "Near Belgium"]
+            }
+        ];
+
+        class ChristmasQuiz {
+            constructor(quizData, containerElement) {
+                this.quizData = quizData;
+                this.containerElement = containerElement;
+                this.currentQuestionIndex = 0;
+            }
+
+            renderQuestion() {
+                const currentQuestion = this.quizData[this.currentQuestionIndex];
+                
+                this.containerElement.innerHTML = `
+                    <div class="question">${currentQuestion.question}</div>
+                    <input type="text" class="answer-input" placeholder="Type your Christmas answer here 🎄">
+                    <button class="submit-btn">Submit Answer 🦌</button>
+                    <div class="feedback"></div>
+                `;
+
+                const submitBtn = this.containerElement.querySelector('.submit-btn');
+                const answerInput = this.containerElement.querySelector('.answer-input');
+                const feedbackElement = this.containerElement.querySelector('.feedback');
+
+                submitBtn.addEventListener('click', () => this.checkAnswer(answerInput.value));
+                
+                // Allow submit on Enter key
+                answerInput.addEventListener('keyup', (event) => {
+                    if (event.key === 'Enter') {
+                        this.checkAnswer(answerInput.value);
+                    }
+                });
+            }
+
+            checkAnswer(userAnswer) {
+                const currentQuestion = this.quizData[this.currentQuestionIndex];
+                const feedbackElement = this.containerElement.querySelector('.feedback');
+                const answerInput = this.containerElement.querySelector('.answer-input');
+
+                // Case-insensitive comparison and trim whitespace
+                const isCorrect = userAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
+
+                if (isCorrect) {
+                    feedbackElement.innerHTML = '✅ Correct! 🎉🎄';
+                    feedbackElement.classList.add('correct');
+                    
+                    setTimeout(() => {
+                        this.currentQuestionIndex++;
+                        if (this.currentQuestionIndex < this.quizData.length) {
+                            this.renderQuestion();
+                        } else {
+                            this.containerElement.innerHTML = `
+                                <h1>🎄 Quiz Complete! 🎅</h1>
+                                <div class="question">Congratulations! You've conquered the Magical Christmas Quiz! 🦌🍪</div>
+                            `;
+                        }
+                    }, 1500);
+                } else {
+                    feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} 🎄`;
+                    feedbackElement.classList.add('incorrect');
+                    answerInput.value = '';
+                }
+            }
+
+            start() {
+                this.renderQuestion();
+            }
+        }
+
+        // Initialize the quiz when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const quizContainer = document.getElementById('quiz-content');
+            const quiz = new ChristmasQuiz(christmasQuizData, quizContainer);
+            quiz.start();
+        });
+    </script>
+</body>
 </html>
