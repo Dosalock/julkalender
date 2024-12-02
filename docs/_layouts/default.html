@@ -226,7 +226,7 @@
                 let c = cookies[i];
                 console.log(c);
                 while (c.charAt(0) == ' ') c = c.substring(1, c.length); // Remove leading spaces
-                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.length;
             }
             return null; // Return null if cookie is not found
         }
