@@ -276,7 +276,7 @@
                 this.containerElement = containerElement;
                 this.currentQuestionIndex = new Date().getDate();
                 this.currentRewardImage = getCookie('lastRewardImage') ? getCookie('lastRewardImage') : null;
-                this.currenHintIndex = getCookie('hintIndex') ? getCookie('hintIndex').lenght : 0;
+                this.currenHintIndex = getCookie('hintIndex') ? getCookie('hintIndex').length : 0;
             }
 
             renderQuestion() {
@@ -360,9 +360,10 @@
                     }, 600000);
                 } else {
 
-                    setCookieAtMidnight('hintIndex', this.currenHintIndex + 1 );
-                    this.currenHintIndex += 1; 
-                    
+                    if (this.currenHintIndex + 1 < currentQuestion.hints.length){
+                        this.currenHintIndex += 1; 
+                        setCookieAtMidnight('hintIndex', this.currenHintIndex + 1 );
+                }
                     feedbackElement.innerHTML = `❌ Incorrect. <br> Hint: `; 
 
                     for (let i = 0; i < this.currenHintIndex; i++)
