@@ -361,12 +361,15 @@
                 } else {
 
                     setCookieAtMidnight('hintIndex', 1 );
+                    
+                    feedbackElement.innerHTML = `❌ Incorrect. <br> Hint: `; 
 
-                    feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} 🎄`; 
-                    console.log(getCookie('hintIndex'));
-                    if (getCookie('hintIndex') > 0) {
-                        feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} \n ${currentQuestion.hints[1]}🎄`;
+                    for (let i = 0; i < getCookie('hintIndex'); i++)
+                    {
+                        feedbackElement.innerHTML += `${currentQuestion.hints[i]} <br>`;
                     }
+                    
+                    feedbackElement.innerHTML += `🎄`;
                     feedbackElement.classList.add('incorrect');
                     answerInput.value = '';
                 }
