@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Magical Christmas Quiz</title>
@@ -7,12 +8,12 @@
     <style>
         body {
             background-color: #8B0000;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.1) 2px, transparent 2px),
-                linear-gradient(90deg, rgba(255,255,255,0.1) 2px, transparent 2px),
-                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size:
                 100px 100px,
                 100px 100px,
                 20px 20px,
@@ -28,13 +29,14 @@
             box-sizing: border-box;
             overflow: hidden;
         }
+
         .quiz-container {
             background-color: rgba(139, 0, 0, 0.9);
             border-radius: 30px;
             border: 10px solid green;
-            box-shadow: 
+            box-shadow:
                 0 0 0 5px #228B22,
-                0 10px 30px rgba(0,0,0,0.5);
+                0 10px 30px rgba(0, 0, 0, 0.5);
             padding: 30px;
             max-width: 600px;
             width: 100%;
@@ -42,43 +44,82 @@
             position: relative;
             overflow: hidden;
         }
+
         .decorative-tree {
             position: absolute;
             font-size: 100px;
             opacity: 0.2;
             z-index: -1;
         }
+
         .tree-top-left {
             top: -50px;
             left: -50px;
             transform: rotate(-15deg);
         }
+
         .tree-bottom-right {
             bottom: -50px;
             right: -50px;
             transform: rotate(15deg);
         }
+
         .bells {
             position: absolute;
             font-size: 30px;
             color: #FFD700;
         }
-        .bell1 { top: 10px; left: 10px; }
-        .bell2 { top: 10px; right: 10px; }
-        .bell3 { bottom: 10px; left: 10px; }
-        .bell4 { bottom: 10px; right: 10px; }
+
+        .bell1 {
+            top: 10px;
+            left: 10px;
+        }
+
+        .bell2 {
+            top: 10px;
+            right: 10px;
+        }
+
+        .bell3 {
+            bottom: 10px;
+            left: 10px;
+        }
+
+        .bell4 {
+            bottom: 10px;
+            right: 10px;
+        }
+
         .mushroom {
             position: absolute;
             font-size: 40px;
         }
-        .mushroom1 { top: 20px; left: 50px; }
-        .mushroom2 { bottom: 20px; right: 50px; }
+
+        .mushroom1 {
+            top: 20px;
+            left: 50px;
+        }
+
+        .mushroom2 {
+            bottom: 20px;
+            right: 50px;
+        }
+
         .cute-animal {
             position: absolute;
             font-size: 50px;
         }
-        .animal1 { top: 10px; right: 50px; }
-        .animal2 { bottom: 10px; left: 50px; }
+
+        .animal1 {
+            top: 10px;
+            right: 50px;
+        }
+
+        .animal2 {
+            bottom: 10px;
+            left: 50px;
+        }
+
         h1 {
             color: #FFD700;
             text-shadow: 3px 3px 0 #228B22;
@@ -86,12 +127,14 @@
             position: relative;
             z-index: 10;
         }
+
         .question {
             color: #ffffff;
             font-size: 24px;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
         }
+
         .answer-input {
             width: 100%;
             padding: 10px;
@@ -101,12 +144,14 @@
             font-size: 18px;
             font-family: 'Gochi Hand';
             text-align: center;
-            background-color: rgba(255,255,255,0.2);
+            background-color: rgba(255, 255, 255, 0.2);
             color: white;
         }
+
         .answer-input::placeholder {
-            color: rgba(255,255,255,0.7);
+            color: rgba(255, 255, 255, 0.7);
         }
+
         .submit-btn {
             background-color: #228B22;
             color: #FFD700;
@@ -120,34 +165,41 @@
             position: relative;
             overflow: hidden;
         }
+
         .submit-btn:hover {
             background-color: #1E481E;
             transform: scale(1.05);
         }
+
         .feedback {
             margin-top: 20px;
             font-size: 20px;
-            text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
         }
+
         .correct {
             color: #00FF00;
         }
+
         .incorrect {
             color: #FF4500;
         }
+
         .reward-image {
             max-width: 300px;
             max-height: 300px;
             margin: 20px auto;
             border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
         }
+
         .locked-question {
             opacity: 0.5;
             cursor: not-allowed;
         }
     </style>
 </head>
+
 <body>
     <div class="quiz-container">
         <!-- Previous decorative elements remain the same -->
@@ -158,57 +210,99 @@
     </div>
 
     <script>
+        function setCookieAtMidnight(name, value) {
+
+            const now = new Date();
+            const expires_at_midnight = new Date(now);
+            expires_at_midnight.setHours(24, 0, 0, 0);
+            document.cookie = `${name}=${value}; SameSite=Lax; expires=${expires_at_midnight.toUTCString()}; path=/`;
+
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let c = cookies[i];
+                console.log(c);
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length); // Remove leading spaces
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null; // Return null if cookie is not found
+        }
+
+        function getTodaysCookie() {
+            const name = new Date().getDate().toString();
+
+            if (getCookie(name) != null)
+            {
+                return true;
+            } 
+            return false;
+        }
+
         const christmasQuizData = [
             {
-                question: 'Day 3:<br>CEO entreprenour 🧑‍🦲<br>Johan мальчонка 👩‍🎤<br>Piska is such a 🥸<br>My girlfriend, 🏋️ Bogel<br><br>🧑‍🦲[0] + 👩‍🎤[3] + 🥸[0] + 🏋️[1:2]',
+                question: "Day 1: bodge",
+                correctAnswer: "01110000",
+                hints: ["p", "Where do you call if someone is dying?"],
+                rewardImage: "images/day2.png",
+                validFrom: new Date(2024, 11, 1),
+                validTo: new Date(2024, 11, 2)
+            },
+            {
+                question: "Day 2: What number does pp and emergencies have in common?\n answer in binary:)",
+                correctAnswer: "01110000",
+                hints: ["p", "Where do you call if someone is dying?"],
+                rewardImage: "images/day2.png",
+                validFrom: new Date(2024, 11, 2),
+                validTo: new Date(2024, 11, 3)
+            },
+
+            {
+                question: 'Day 3: <br>CEO entreprenour 🧑‍🦲<br>Johan мальчонка 👩‍🎤<br>Piska is such a 🥸<br>My girlfriend, 🏋️ Bogel<br><br>🧑‍🦲[0] + 👩‍🎤[3] + 🥸[0] + 🏋️[1:2]',
                 correctAnswer: "japan",
                 hints: ["great food", "🌸🌸"],
                 rewardImage: "images/day3.png",
                 validFrom: new Date(2024, 11, 3),
                 validTo: new Date(2024, 11, 4)
-            },
-{
-                question: "Day 2: What number does pp and emergencies have in common?\n answer in binary:)",
-                correctAnswer: "01110000",
-                hints: ["p", "Where do you call if someone is dying?"],
-                rewardImage: "images/day2.png",
-                validFrom: new Date(2024, 11, 7),
-                validTo: new Date(2024, 11, 3)
             }
+            
         ];
 
         class ChristmasQuiz {
             constructor(quizData, containerElement) {
                 this.quizData = quizData;
                 this.containerElement = containerElement;
-                this.currentQuestionIndex = 0;
-                this.currentRewardImage = null;
-this.currenHintIndex = 0;
+                this.currentQuestionIndex = new Date().getDate();
+                this.currentRewardImage = getCookie('lastRewardImage') ? getCookie('lastRewardImage') : null;
+                this.currenHintIndex = 0;
             }
 
             renderQuestion() {
-                const currentQuestion = this.quizData[this.currentQuestionIndex];
+                console.log('CurIndex: ' + this.currentQuestionIndex);
+                this.currentQuestionIndex = new Date().getDate() - 1;
+                console.log('CurIndex: ' + this.currentQuestionIndex);
+                const currentQuestion = this.quizData[(this.currentQuestionIndex + (getTodaysCookie() == true ? 1 : 0))];
                 const today = new Date();
 
                 // Check if the current question is available today
                 if (today < currentQuestion.validFrom || today >= currentQuestion.validTo) {
-this.currentRewardImage = this.quizData[1].rewardImage;
-                  this.containerElement.innerHTML = `
+                    this.currentRewardImage = this.quizData[1].rewardImage;
+                    this.containerElement.innerHTML = `
                         <div class="question locked-question">🔒 This question will be available on ${currentQuestion.validFrom.toDateString()} 🕒</div><div class="feedback correct">last question result image</div>
                         <img src="${this.currentRewardImage}" alt="Reward" class="reward-image">
 
 
                     `;
-
-
-return;
+                    return;
                 }
-                
+
                 // If there's a previous reward image, keep it displayed
-                let rewardImageHtml = this.currentRewardImage ? 
-                    `<img src="${this.currentRewardImage}" alt="Reward" class="reward-image">` : 
+                let rewardImageHtml = this.currentRewardImage ?
+                    `<img src="${this.currentRewardImage}" alt="Reward" class="reward-image">` :
                     '';
-                
+
                 this.containerElement.innerHTML = `
                     ${rewardImageHtml}
                     <div class="question">${currentQuestion.question}</div>
@@ -222,7 +316,7 @@ return;
                 const feedbackElement = this.containerElement.querySelector('.feedback');
 
                 submitBtn.addEventListener('click', () => this.checkAnswer(answerInput.value));
-                
+
                 // Allow submit on Enter key
                 answerInput.addEventListener('keyup', (event) => {
                     if (event.key === 'Enter') {
@@ -240,15 +334,19 @@ return;
                 const isCorrect = userAnswer.trim().toLowerCase() === currentQuestion.correctAnswer.toLowerCase();
 
                 if (isCorrect) {
+                    setCookieAtMidnight(new Date().getDate(), true);
                     // Store the reward image for the next question
+                    this.currenHintIndex = 0;
+                    
                     this.currentRewardImage = currentQuestion.rewardImage;
-
+                    setCookieAtMidnight(`lastRewardImage`, currentQuestion.rewardImage);
+                    
                     // Show feedback
                     this.containerElement.innerHTML = `
                         <div class="feedback correct">✅ Correct! 🎉🎄</div>
                         <img src="${this.currentRewardImage}" alt="Reward" class="reward-image">
                     `;
-                    
+
                     setTimeout(() => {
                         this.currentQuestionIndex++;
                         if (this.currentQuestionIndex < this.quizData.length) {
@@ -263,10 +361,11 @@ return;
                 } else {
 
                     feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} 🎄`; this.currentHintIndex += 1;
-    
-if(this.currentHintIndex > 0){
-feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} \n $currentQuestion.hints[1]🎄`;
-}                 feedbackElement.classList.add('incorrect');
+
+                    if (this.currentHintIndex > 0) {
+                        feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} \n ${currentQuestion.hints[1]}🎄`;
+                    }
+                    feedbackElement.classList.add('incorrect');
                     answerInput.value = '';
                 }
             }
@@ -284,4 +383,5 @@ feedbackElement.innerHTML = `❌ Incorrect. Hint: ${currentQuestion.hints[0]} \n
         });
     </script>
 </body>
+
 </html>
