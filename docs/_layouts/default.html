@@ -360,7 +360,8 @@
                     }, 600000);
                 } else {
 
-                    setCookieAtMidnight('hintIndex', getCookie('hintIndex').length + 1 );
+                    setCookieAtMidnight('hintIndex', this.currenHintIndex + 1 );
+                    this.currenHintIndex += 1; 
                     
                     feedbackElement.innerHTML = `❌ Incorrect. <br> Hint: `; 
 
