@@ -360,7 +360,7 @@
                     }, 600000);
                 } else {
 
-                    if (this.currenHintIndex + 1 < currentQuestion.hints.length){
+                    if (this.currenHintIndex  < currentQuestion.hints.length){
                         this.currenHintIndex += 1; 
                         setCookieAtMidnight('hintIndex', this.currenHintIndex + 1 );
                 }
