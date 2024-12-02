@@ -276,7 +276,7 @@
                 this.containerElement = containerElement;
                 this.currentQuestionIndex = new Date().getDate();
                 this.currentRewardImage = getCookie('lastRewardImage') ? getCookie('lastRewardImage') : null;
-                this.currenHintIndex = 0;
+                this.currenHintIndex = getCookie('hintIndex') ? getCookie('hintIndex').lenght : 0;
             }
 
             renderQuestion() {
@@ -364,7 +364,7 @@
                     
                     feedbackElement.innerHTML = `❌ Incorrect. <br> Hint: `; 
 
-                    for (let i = 0; i < getCookie('hintIndex'); i++)
+                    for (let i = 0; i < this.currenHintIndex; i++)
                     {
                         feedbackElement.innerHTML += `${currentQuestion.hints[i]} <br>`;
                     }
