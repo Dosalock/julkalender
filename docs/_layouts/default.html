@@ -455,7 +455,7 @@ question: "Day 10: <br> In the US you leave cookies and milk for Santa, what do 
 
                 // Check if the current question is available today
                 if (today < currentQuestion.validFrom || today >= currentQuestion.validTo) {
-                    this.currentRewardImage = this.quizData[1].rewardImage;
+                    this.currentRewardImage = this.quizData[this.currentQuestionIndex].rewardImage;
                     this.containerElement.innerHTML = `
                         <div class="question locked-question">🔒 This question will be available on ${currentQuestion.validFrom.toDateString()} 🕒</div><div class="feedback correct">last question result image</div>
                         <img src="${this.currentRewardImage}" alt="Reward" class="reward-image">
