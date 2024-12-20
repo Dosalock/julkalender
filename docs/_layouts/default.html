@@ -409,42 +409,58 @@ question: "Day 10: <br> In the US you leave cookies and milk for Santa, what do 
         validTo: new Date(2024, 11, 22)
     },
     {
-        question: "Day 21: <br> Which famous Christmas ballet was first performed in 1892? <br> Answer is two words.",
-        correctAnswer: "The Nutcracker",
-        hints: ["A story about toys.", "Set to music by Tchaikovsky.", "Performed every Christmas.", "Starts with T and N."],
-        rewardImage: "images/day21.png",
-        validFrom: new Date(2024, 11, 21),
-        validTo: new Date(2024, 11, 22)
-    },
-    {
-        question: "Day 22: <br> In the 1823 poem 'A Visit from St. Nicholas,' what are Santa's reindeer traditionally called? <br> Answer is eight names in the correct order.",
-        correctAnswer: "Dasher, Dancer, Prancer, Vixen, Comet, Cupid, Donner, Blitzen",
-        hints: ["Starts with Dasher.", "Ends with Blitzen.", "Rhymes involved.", "Think 'Night Before Christmas.'"],
-        rewardImage: "images/day22.png",
-        validFrom: new Date(2024, 11, 22),
-        validTo: new Date(2024, 11, 23)
-    },
-    {
-        question: "Day 23: <br> What is the SI unit of light intensity, often associated with the brightness of Christmas lights? <br> Answer is a single word.",
-        correctAnswer: "Candela",
-        hints: ["Named after a candle.", "Used in physics.", "Symbol: cd.", "Starts with C."],
-        rewardImage: "images/day23.png",
-        validFrom: new Date(2024, 11, 23),
-        validTo: new Date(2024, 11, 24)
-    },
-    {
-        question: "Day 24: <br> According to the original lyrics of 'Jingle Bells,' what kind of sleigh is mentioned? <br> Answer is three words.",
-        correctAnswer: "One horse open",
-        hints: ["First word: quantity.", "Second word: animal.", "Third word: no roof.", "Starts with O."],
-        rewardImage: "images/day24.png",
-        validFrom: new Date(2024, 11, 24),
-        validTo: new Date(2024, 11, 25)
-    }
+    "question": "Day 22: <br> I have a face but no eyes, a round body, and I’m often dressed in a scarf and hat. I appear when it’s cold and disappear when it’s warm. What am I? <br> Answer is one word.",
+    "correctAnswer": "Snowman",
+    "hints": [
+        "I’m made of three parts.",
+        "Carrots and coal are my accessories.",
+        "I melt in the sun.",
+"You build me in the snow."
+    ],
+    "rewardImage": "images/day22.png",
+    "validFrom": new Date(2024, 11, 22),
+    "validTo": new Date(2024, 11, 23)
+},{
+    "question": "Day 22: <br> The more you take away from me, the bigger I get. What am I? <br> Answer is one word.",
+    "correctAnswer": "Hole",
+    "hints": [
+        "Think about digging.",
+        "I’m often found in the ground.",
+        "I get bigger as you remove material.",
+        "Starts with 'H'."
+    ],
+    "rewardImage": "images/day22.png",
+    "validFrom": new Date(2024, 11, 22),
+    "validTo": new Date(2024, 11, 23)
+},
 
+{
+    "question": "Day 23: <br> I speak without a mouth and hear without ears. I have no body, but I come alive with the wind. What am I? <br> Answer is one word.",
+    "correctAnswer": "Echo",
+    "hints": [
+        "I repeat what you say.",
+        "I’m often heard in valleys or mountains.",
+        "I can’t exist without sound.",
+        "Starts with 'E'."
+    ],
+    "rewardImage": "images/day23.png",
+    "validFrom": new Date(2024, 11, 23),
+    "validTo": new Date(2024, 11, 24)
+},
 
-
-
-        ];
+{
+    "question": "Day 24: <br> The more of me you take, the more you leave behind. What am I? <br> Answer is one word.",
+    "correctAnswer": "Footsteps",
+    "hints": [
+        "I happen when you walk.",
+        "I’m left on soft surfaces like snow or sand.",
+        "I disappear over time.",
+        "Starts with 'F'."
+    ],
+    "rewardImage": "images/day24.png",
+    "validFrom": new Date(2024, 11, 24),
+    "validTo": new Date(2024, 11, 25)
+}];
 
         class ChristmasQuiz {
             constructor(quizData, containerElement) {
